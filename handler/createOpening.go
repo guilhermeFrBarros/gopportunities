@@ -10,4 +10,5 @@ func CreateOpeningHandler(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "GET Openinng",
 	})
+
 }
