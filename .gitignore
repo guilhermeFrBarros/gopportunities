@@ -1,0 +1,18 @@
+# Bineries 
+
+*.exe
+*.dll
+*.so
+*.dyl
+
+# Test binary
+
+*.test 
+
+# Converge
+
+*.out
+
+Db folder
+
+db/
