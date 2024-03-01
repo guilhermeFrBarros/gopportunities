@@ -6,12 +6,13 @@ import (
 )
 
 func initializeRoutes(router *gin.Engine) {
+	handler.InitalizeHandler() // iniciliza as vairvaies globais do handler
 
 	rV1 := router.Group("/api/v1")
 	{
-		rV1.GET("/opening", handler.CreateOpeningHandler)
+		rV1.GET("/opening", handler.GetOpeningHandler)
 
-		rV1.POST("/opening", handler.GetOpeningHandler)
+		rV1.POST("/opening", handler.CreateOpeningHandler)
 
 		rV1.DELETE("/opening", handler.DeleteOpeningHandler)
 
