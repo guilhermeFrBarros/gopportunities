@@ -3,7 +3,7 @@ package config
 import (
 	"os"
 
-	"github.com/guilhermeFrBarros/gopportunities/schemas"
+	"github.com/guilhermeFrBarros/gopportunities/model"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -13,6 +13,7 @@ func InitializeSQLite() (*gorm.DB, error) {
 	dbPath := "./db/main.db"
 
 	// checa se existe o arquivo
+	// _  => descarta o valor
 	_, err := os.Stat(dbPath)
 	if os.IsNotExist(err) {
 		logger.Info("database file not found, creating...")
@@ -36,7 +37,7 @@ func InitializeSQLite() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	err = db.AutoMigrate((&schemas.Opening{})) // pega a estrutura montado no schema e tenta migra o BD para ela, se não conseguir retorna um erro
+	err = db.AutoMigrate((&model.Opening{})) // pega a estrutura montado no schema e tenta migra o BD para ela, se não conseguir retorna um erro
 	if err != nil {
 		logger.ErrF("sqlite automigration error: %v", err)
 		return nil, err
