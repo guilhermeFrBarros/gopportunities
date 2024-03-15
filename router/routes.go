@@ -15,6 +15,7 @@ func initializeRoutes(router *gin.Engine) {
 		rV1.POST("/opening", handler.CreateOpeningHandler)
 
 		rV1.DELETE("/opening", handler.DeleteOpeningHandler)
+		//DELETE("/opening/:id", func)"  com param
 
 		rV1.PUT("/opening", handler.UpdateOpeningHandler)
 

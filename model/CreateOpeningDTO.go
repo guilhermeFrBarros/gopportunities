@@ -1,10 +1,10 @@
-package handler
+package model
 
-import "fmt"
+import (
+	"fmt"
 
-func errParamIsRequired(name, typ string) error {
-	return fmt.Errorf("param: %s (type:  %s) is required: ", name, typ)
-}
+	svc "github.com/guilhermeFrBarros/gopportunities/services"
+)
 
 type CreateOpeningDTO struct {
 	Role     string `json:"role"`
@@ -22,22 +22,22 @@ func (r *CreateOpeningDTO) Validate() error {
 		return fmt.Errorf("request body is empty or malformed")
 	}
 	if r.Role == "" {
-		return errParamIsRequired("role", "string")
+		return svc.ErrParamIsRequired("role", "string")
 	}
 	if r.Company == "" {
-		return errParamIsRequired("company", "string")
+		return svc.ErrParamIsRequired("company", "string")
 	}
 	if r.Location == "" {
-		return errParamIsRequired("location", "string")
+		return svc.ErrParamIsRequired("location", "string")
 	}
 	if r.Link == "" {
-		return errParamIsRequired("link", "string")
+		return svc.ErrParamIsRequired("link", "string")
 	}
 	if r.Remote == nil {
-		return errParamIsRequired("remote", "bool")
+		return svc.ErrParamIsRequired("remote", "bool")
 	}
 	if r.Salary <= 0 {
-		return errParamIsRequired("salary", "int64")
+		return svc.ErrParamIsRequired("salary", "int64")
 	}
 
 	return nil
