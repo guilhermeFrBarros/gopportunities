@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/guilhermeFrBarros/gopportunities/schemas"
+	"github.com/guilhermeFrBarros/gopportunities/model"
 )
 
 func CreateOpeningHandler(ctx *gin.Context) {
 
-	request := CreateOpeningDTO{} // {} instanciação
+	request := model.CreateOpeningDTO{} // {} instanciação
 
 	ctx.BindJSON(&request) // analisa o dados da requisição e preenche o objeto dentro dos parentes
 
@@ -19,14 +19,17 @@ func CreateOpeningHandler(ctx *gin.Context) {
 		return
 	}
 
-	opening := schemas.Opening{
-		Role:     request.Role,
-		Company:  request.Company,
-		Location: request.Location,
-		Remote:   *request.Remote,
-		Link:     request.Link,
-		Salary:   request.Salary,
-	}
+	opening := model.Opening{}
+	//func que passa os valores para da req para a opening
+	opening.NewOpening(&request)
+	// opening := model.Opening{
+	// 	Role:     request.Role,
+	// 	Company:  request.Company,
+	// 	Location: request.Location,
+	// 	Remote:   *request.Remote,
+	// 	Link:     request.Link,
+	// 	Salary:   request.Salary,
+	// }
 
 	if err := db.Create((&opening)).Error; err != nil {
 		logger.ErrF("error creating opening: %v", err.Error())
@@ -34,7 +37,7 @@ func CreateOpeningHandler(ctx *gin.Context) {
 		return
 	}
 
-	sendSuccess(ctx, "create-opening", opening) // devido ao ponteiro oi gorm atualiza as informações da opening
+	sendSuccess(ctx, "create-opening", opening, http.StatusCreated) // devido ao ponteiro oi gorm atualiza as informações da opening
 }
 
 /*
